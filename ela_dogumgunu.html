@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>İyi ki Doğdun Ela!</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(to right, #C8A2C8 , #fad7fa );
+        font-family: "Comic Neue", cursive;
+        text-align: center;
+        padding: 20px;
+        color: #6a1b9a;
+        overflow: hidden;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        position: relative;
+        box-sizing: border-box;
+      }
+      h1 {
+        font-size: 3.5em;
+        animation: sparkle 2s infinite alternate;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      @keyframes sparkle {
+        0% {
+          color: #ff69b4;
+        }
+        100% {
+          color: #ba68c8;
+        }
+      }
+      .cake {
+        font-size: 6em;
+        margin: 30px 0;
+        transition: transform 0.5s ease-in-out;
+        cursor: pointer;
+        animation: float 2s infinite ease-in-out;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+      .button {
+        background-color: #ff4081;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.3em;
+        border-radius: 30px;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+      .button:hover {
+        background-color: #f50057;
+        transform: translateY(-3px);
+      }
+      .button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      #clickHint {
+        font-size: 1.1em;
+        color: #88399a;
+        margin-top: 10px;
+        animation: pulse 1.5s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.8;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      #photo-container {
+        display: none;
+        margin-top: 30px;
+        width: 90%;
+        max-width: 500px;
+        background: #ffffffdd;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 1s ease-in-out;
+      }
+      #photo-display {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        display: block;
+        margin-bottom: 10px;
+        max-height: 400px;
+        object-fit: contain;
+      }
+      #photo-comment {
+        color: #6a1b9a;
+        font-size: 1.2em;
+        margin-top: 10px;
+        font-style: italic;
+      }
+      #envelope {
+        font-size: 8em;
+        cursor: pointer;
+        display: none;
+        animation: float 2s infinite ease-in-out;
+        margin-top: 40px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      #message {
+        display: none;
+        font-size: 1.6em;
+        margin-top: 30px;
+        background: #ffffffdd;
+        padding: 30px;
+        border-radius: 20px;
+        border: 3px dashed #ce93d8;
+        color: #6a1b9a;
+        animation: fadeIn 1s ease-in-out;
+        max-width: 600px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        line-height: 1.6;
+      }
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #C8A2C8;
+        border-radius: 50%;
+        opacity: 0;
+        animation: fall 3s forwards;
+        pointer-events: none;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(-100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5em;
+        }
+        .cake {
+          font-size: 4em;
+        }
+        .button {
+          padding: 12px 25px;
+          font-size: 1.1em;
+        }
+        #photo-container {
+          width: 95%;
+          padding: 10px;
+        }
+        #photo-display {
+          max-height: 300px;
+        }
+        #envelope {
+          font-size: 6em;
+        }
+        #message {
+          font-size: 1.2em;
+          padding: 20px;
+          margin-top: 20px;
+        }
+      }
+    </style>
+</head>
+<body>
+  <h1>🎂 İyi ki Doğdun Ela! 🎉</h1>
+  <div id="cake" class="cake" onclick="startCelebration()">🎂</div>
+  <p id="introText">3 Temmuz'un en tatlı kızı için özel kutlama zamanı! 🥳</p>
+  <p id="clickHint">Pastaya tıkla!</p>
+
+  <!-- Fotoğraf Gösterim Alanı -->
+  <div id="photo-container">
+    <img id="photo-display" src="" alt="Ela'nın Fotoğrafı" />
+    <p id="photo-comment"></p>
+    <button id="next-photo-button" class="button" onclick="displayNextPhoto()">
+      Sonraki Fotoğraf 📸
+    </button>
+  </div>
+
+  <!-- Zarf -->
+  <div id="envelope" onclick="openEnvelope()">✉️</div>
+
+  <!-- Mesaj -->
+  <div id="message">
+    -Hayatının her anında mutluluk, sağlık ve başarı seninle olsun. 
+Yeni yaşın sana harika sürprizler getirsin!-<br><strong>-Canım kuzenim, iyi ki varsın ve bana sahipsin. 🎈💖-</strong>
+                                               
+                                              -EN SEVDİĞİN KUZENİN-
+
+  </div>
+
+  <!-- Müzik -->
+  <audio id="bgMusic" loop>
+    <source
+      src="0702.MP3"
+      type="audio/mpeg"
+    />
+    Tarayıcınız ses çalmayı desteklemiyor.
+  </audio>
+
+  <script>
+    const music = document.getElementById("bgMusic");
+    const photoContainer = document.getElementById("photo-container");
+    const photoDisplay = document.getElementById("photo-display");
+    const photoComment = document.getElementById("photo-comment");
+    const nextPhotoButton = document.getElementById("next-photo-button");
+    const envelope = document.getElementById("envelope");
+    const message = document.getElementById("message");
+    const clickHint = document.getElementById("clickHint");
+
+    const imageUrls = [
+      "WhatsApp Görsel 2025-07-02 saat 12.47.12_4be66877.jpg",
+      "WhatsApp Görsel 2025-07-02 saat 12.47.12_007d8c7b.jpg",
+      "WhatsApp Görsel 2025-07-02 saat 12.47.12_16e47051.jpg",
+      "WhatsApp Görsel 2025-07-02 saat 12.47.12_e0500c3d.jpg",
+      "WhatsApp Görsel 2025-07-02 saat 12.47.12_ece58848.jpg",
+      "WhatsApp Görsel 2025-07-02 saat 12.55.21_b7af9b90.jpg",
+      "WhatsApp Görsel 2025-07-02 saat 12.55.21_ee5aedf5.jpg",
+      "IMG_20240622_131048.jpg",
+      "IMG_20240801_001435.jpg",
+      "IMG-20240806-WA0008.jpg"
+       
+    ];
+
+    const comments = [
+      "Bak hele, bu gülüşle dünyayı fethederiz dedik, biraz abartmışsın! 😏🌍",
+      "Yine poz vermişsin, nereye bu sefer? 📸😉",
+      "Enerjine diyecek yok, resmen elektrik faturasını artırıyorsun! ⚡😜",
+      "Bu gözlerle herkesi etkiliyorsun, ama sakın yaramazlık yapma ha! 😘👀 Öpücüklerin sahibi var mı? 🤭💋",
+      "Yıldız sen misin? Parlamaya devam et, gözler kamaşıyor! ✨😎",
+      "Anılar mı? Bunlar çoğu zaman bahaneyle çekilen selfie’ler! 🤳😂",
+      "Dudağını silseydin, yani it yalasa doyar! 😘😏",
+      "İlk dışarda film izlememiz ve gezmemizdi.🤪🥳",
+      "Pijama partisi dedik adeta savaş yaptık.Lakin sabahı gören olmadı🛌😜",
+      "Durduk yere ama çok eğlendik.Sen sanatsal bir bakış atarken,Canın süt kardeşin 'Ne çekiyorsun ya?' der gibi. 😂 İşte budur, anlamsızlığın zirvesi! 🤪"
+    ];
+
+    let currentImageIndex = 0;
+
+    function startCelebration() {
+      document.getElementById("cake").style.display = "none";
+      document.getElementById("introText").style.display = "none";
+      clickHint.style.display = "none";
+
+      photoContainer.style.display = "block";
+      music.play().catch((e) => console.error("Müzik çalma hatası:", e));
+      displayNextPhoto();
+    }
+
+    function displayNextPhoto() {
+      if (currentImageIndex < imageUrls.length) {
+        photoDisplay.src = imageUrls[currentImageIndex];
+        photoComment.textContent = comments[currentImageIndex];
+        currentImageIndex++;
+
+        if (currentImageIndex === imageUrls.length) {
+          nextPhotoButton.textContent = "Zarfı Aç ✉️";
+          nextPhotoButton.onclick = showEnvelopeFinal;
+        }
+      }
+    }
+
+    function showEnvelopeFinal() {
+      photoContainer.style.display = "none";
+      nextPhotoButton.style.display = "none";
+
+      envelope.style.display = "block";
+    }
+
+    function openEnvelope() {
+      envelope.style.display = "none";
+      message.style.display = "block";
+      createConfetti();
+    }
+
+    function createConfetti() {
+      const confettiColors = [
+        "#ff69b4",
+        "#ba68c8",
+        "#ffb6c1",
+        "#ffe4e1",
+        "#ff4081",
+        "#f50057"
+      ];
+      const numConfetti = 50;
+      for (let i = 0; i < numConfetti; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor =
+          confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        confetti.style.animationDelay = Math.random() * 2 + "s";
+        confetti.style.transform = `scale(${Math.random() * 0.8 + 0.2})`;
+        document.body.appendChild(confetti);
+
+        confetti.addEventListener("animationend", () => {
+          confetti.remove();
+        });
+      }
+    }
+  </script>
+</body>
+</html>
